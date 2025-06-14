@@ -11,8 +11,8 @@ import { RouterOutlet } from '@angular/router';
 })
 
 //export = public
-export class AppComponent implements OnInit{
-  http = inject(HttpClient); //Send request to API
+export class AppComponent implements OnInit{ 
+  http = inject(HttpClient); //Send request to API.NET ở https://localhost:5001/api/users.
   title = 'AppDating';
   users : any; // return any type data
 
