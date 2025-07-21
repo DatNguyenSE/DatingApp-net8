@@ -47,7 +47,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
         if (user == null) return Unauthorized("Invalid username or password");
 
-        using var hmac = new HMACSHA512(user.PasswordSaft); //tim dung cthuc da ma khoa ->  
+        using var hmac = new HMACSHA512(user.PasswordSaft);            //tim dung cthuc da ma khoa ->  
 
         var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));// khi tim duoc cthuc thi ma hoa 1 lan nua password de sosanh chuoi password trong db
 

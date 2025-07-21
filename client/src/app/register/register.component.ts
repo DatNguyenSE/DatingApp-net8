@@ -1,6 +1,7 @@
 import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -18,14 +19,14 @@ export class RegisterComponent {
   // @Output() cancelRegister = new EventEmitter();
   cancelRegister = output<boolean>();   //out event         // <! pratice load data 'child to parent' -->
   model:any={}
-
+  private toastr = inject(ToastrService);
   register(){
     this.accountService.register(this.model).subscribe({
       next: response => {
         console.log(response);
         this.cancel(); // if success -> rollback 
       },
-      error: error => console.log(error)
+      error: error => this.toastr.error(error.error)
     })
   }
 
