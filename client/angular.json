@@ -5,7 +5,12 @@
   "projects": {
     "client": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:interceptor": {
+          "skipTests": true,
+          "path": "src/core/interceptors"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -32,7 +37,6 @@
               "node_modules/bootswatch/dist/united/bootstrap.min.css",
               "src/styles.css",
               "node_modules/ngx-toastr/toastr.css"
-              
             ],
             "scripts": []
           },
@@ -62,7 +66,7 @@
         },
         "serve": {
           "options": {
-            "ssl" : true, 
+            "ssl": true,
             "sslCert": "./ssl/localhost.pem",
             "sslKey": "./ssl/localhost-key.pem"
           },

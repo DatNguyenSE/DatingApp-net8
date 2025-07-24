@@ -25,7 +25,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         var user = new AppUser
         {
             UserName = registerDto.Username.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password)),
+            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
             PasswordSaft = hmac.Key
         };
         context.Users.Add(user);
@@ -40,20 +40,21 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
 
     [HttpPost("login")] //account/login
-    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto) //login by usernam & password
     {
         var user = await context.Users.FirstOrDefaultAsync(x =>  
-        x.UserName == loginDto.Username.ToLower()); //FirstOrDefaultAsync-> return User if true, else null
+        x.UserName == loginDto.Username.ToLower());         //FirstOrDefaultAsync-> return User if true, else null
+                                                            // tìm user theo tên sau đó mới xét tới password
 
-        if (user == null) return Unauthorized("Invalid username or password");
+        if (user == null) return Unauthorized("Invalid username or password"); // néu sai ten -> obj user = null
 
         using var hmac = new HMACSHA512(user.PasswordSaft);            //tim dung cthuc da ma khoa ->  
 
-        var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));// khi tim duoc cthuc thi ma hoa 1 lan nua password de sosanh chuoi password trong db
+        var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));//tim duoc cthuc, thi ma khoa again rồi ss , ss password de sosanh chuoi password trong db
 
         for (int i = 0; i < ComputeHash.Length; i++)
         {
-            if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+            if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password"); // nếu 1 ký tự nào khác
         }
         return new UserDto{
             Username = user.UserName,

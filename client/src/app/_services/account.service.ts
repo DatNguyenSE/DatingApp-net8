@@ -12,10 +12,10 @@ export class AccountService {
   currentUser = signal<User | null>(null);
   
   login(model: any) {
-    return this.http.post<User>(this.baseUrl+'account/login',model).pipe( //.pipe(...): Cho phép bạn xử lý dữ liệu trả về trước khi gửi ra ngoài.
-      map(user => {                                                     //map() dùng để biến đổi dữ liệu.
+    return this.http.post<User>(this.baseUrl+'account/login',model).pipe(        //.pipe(...): Cho phép bạn xử lý dữ liệu trả về trước khi gửi ra ngoài.
+      map(user => {                                                           //map() dùng để biến đổi dữ liệu.
         if(user) {
-          localStorage.setItem("user", JSON.stringify(user)); // đổi về dạng object -> txtjson sau đó muốn lấy thì JSON.parse(localStorage.getItem("user")) 
+          localStorage.setItem("user", JSON.stringify(user));               // đổi về dạng object -> txtjson sau đó muốn lấy thì JSON.parse(localStorage.getItem("user")) 
           this.currentUser.set(user);
         }
       })
