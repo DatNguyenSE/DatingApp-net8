@@ -1,12 +1,17 @@
-using API.Extensions;
-using API.Middleware; //AddApplicationServices() ,AddIdentityService()
+using API.Data;
+using API.Extensions; //AddApplicationServices() ,AddIdentityService()
+using API.Interfaces;
+using API.Middleware;
+using Microsoft.EntityFrameworkCore; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.-----------
 
-builder.Services.AddApplicationServices(builder.Configuration);  
-builder.Services.AddIdentityService(builder.Configuration);     
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityService(builder.Configuration);
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();  
+
 
 var app = builder.Build();
 
@@ -21,4 +26,17 @@ app.UseAuthorization();            // roi moi uy quyen
 
 app.MapControllers();          //	Gọi đến controller để xử lý logic
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
+    await Seed.SeedUsers(context);
+    }
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occured during migration");
+}
 app.Run();

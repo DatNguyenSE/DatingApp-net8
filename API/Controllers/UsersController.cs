@@ -21,8 +21,8 @@ public class UsersController(DataContext context) : BaseApiController //cung c�
 
     
     [Authorize]
-    [HttpGet("{id:int}")]  //localhost 5001 -> api/users/{id}
-    public async Task<ActionResult<AppUser>> GetUsers(int id)
+    [HttpGet("{id}")]  //localhost 5001 -> api/users/{id}
+    public async Task<ActionResult<AppUser>> GetUsers(String id)
     {
         var user = await context.Users.FindAsync(id); // await -> Hãy đi tìm user trong database và khi tìm xong THÌ MỚI gán kết quả vào biến user.”
         if (user == null) return NotFound();
