@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <div style="text-align: center;">
+
+        @if(!registerMode) {
+        <h1>Find your match</h1>
+        <p class="lead">Come on in to view your matches... all you need to do is sin up!</p>
+        <div class="text-center">
+            <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">Register</button>
+            <button class="btn btn-info btn-lg me-2">Learn more</button>
+
+        </div>
+        }
+        @else {
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-4">     <!--if button cancel được bấm thì (cancelRegister) là 1 output value=false -->
+                   <app-register 
+                   [usersFromHomeComponent]="users"
+                   (cancelRegister)="cancelRegisterMode($event)"
+                   ></app-register>  <!--call register.component.html-->
+                </div>
+            </div>
+        </div>
+        }
+
+    </div>
+
+</div>
