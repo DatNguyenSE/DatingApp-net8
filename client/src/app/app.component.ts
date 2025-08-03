@@ -5,11 +5,10 @@ import { AccountService } from '../core/_services/account.service';
 
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, NavComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [RouterOutlet, NavComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 

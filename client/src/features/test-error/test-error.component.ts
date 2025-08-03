@@ -2,11 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 
 @Component({
-  selector: 'app-test-error',
-  standalone: true,
-  imports: [],
-  templateUrl: './test-error.component.html',
-  styleUrl: './test-error.component.css'
+    selector: 'app-test-error',
+    imports: [],
+    templateUrl: './test-error.component.html',
+    styleUrl: './test-error.component.css'
 })
 export class TestErrors {
   private htttp = inject(HttpClient);

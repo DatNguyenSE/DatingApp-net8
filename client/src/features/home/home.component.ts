@@ -3,11 +3,11 @@ import { RegisterComponent } from "../../features/account/register/register.comp
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [RegisterComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home', 
+    standalone: true,
+    imports: [RegisterComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent {
   protected registerMode = signal(false);
