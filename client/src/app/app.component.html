@@ -1,15 +1,9 @@
-<app-nav></app-nav> <!--call nav.component.html-->
+<app-nav />
 
-<div class="container" style="margin-top: 100px;">
-  <router-outlet></router-outlet> <!--call home.component.html-->
+<div 
+    [class.mt-24]="router.url !== '/'"
+    [class.container]="router.url !== '/'"
+    [class.mx-auto]="router.url !== '/'"
+>
+    <router-outlet />
 </div>
-
-
-  <!-- <ul>
-    @for (user of users; track $index) 
-    {
-     <li >
-      {{ user.id }} - {{ user.userName }}
-     </li>
-    }
-</ul> -->

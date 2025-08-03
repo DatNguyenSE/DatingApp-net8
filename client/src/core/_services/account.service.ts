@@ -11,8 +11,8 @@ export class AccountService {
   baseUrl ='https://localhost:5001/api/';
   currentUser = signal<User | null>(null);
   
-  login(model: any) {
-    return this.http.post<User>(this.baseUrl+'account/login',model).pipe(        //.pipe(...): Cho phép bạn xử lý dữ liệu trả về trước khi gửi ra ngoài.
+  login(creds: any) {
+    return this.http.post<User>(this.baseUrl+'account/login',creds).pipe(        //.pipe(...): Cho phép bạn xử lý dữ liệu trả về trước khi gửi ra ngoài.
       map(user => {                                                           //map() dùng để biến đổi dữ liệu.
         if(user) {
           localStorage.setItem("user", JSON.stringify(user));               // đổi về dạng object -> txtjson sau đó muốn lấy thì JSON.parse(localStorage.getItem("user")) 
@@ -22,8 +22,8 @@ export class AccountService {
     )
   }
 
-  register(model: any) {
-    return this.http.post<User>(this.baseUrl+'account/register',model).pipe( //.pipe(...): Cho phép bạn xử lý dữ liệu trả về trước khi gửi ra ngoài.
+  register(creds: any) {
+    return this.http.post<User>(this.baseUrl+'account/register',creds).pipe( //.pipe(...): Cho phép bạn xử lý dữ liệu trả về trước khi gửi ra ngoài.
       map(user => {                                                     //map() dùng để biến đổi dữ liệu.
         if(user) {
           localStorage.setItem("user", JSON.stringify(user)); // đổi về dạng object -> txtjson sau đó muốn lấy thì JSON.parse(localStorage.getItem("user")) 

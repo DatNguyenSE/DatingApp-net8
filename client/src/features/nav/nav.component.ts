@@ -18,7 +18,6 @@ export class NavComponent {
   accountService =inject(AccountService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
-
   protected creds: any = {}
 
   login() {

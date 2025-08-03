@@ -1,57 +1,18 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
-    <h2 class="text-center text-primary">Sign up</h2>
-    <hr>
-    <!--option: pratice load data 'parent to child' -->
-
-    <!-- <div class="mb-3">
-        <label>Who is your favourite user?</label>
-        <select class="form-select">
-            @for(user of usersFromHomeComponent(); track $index){
-            <option [value]="user.userName">
-                {{user.userName}}
-            </option>
-            }
-        </select>
-    </div> -->
-
-    <!--uesrname-->
-    <div class="mb-3 form-floating">
-        <input 
-        type="text" 
-        class="form-control" 
-        name="username" 
-        [(ngModel)]="creds.username" 
-        placeholder="Username"
-        >
-        <label>Username</label>
+<div class="card bg-base-100 w-1/2 mx-auto flex flex-col p-6 rounded-lg shadow-lg">
+    <div class="card-title justify-center text-3xl text-primary">Sign up</div>
+    <div class="card-body w-full">
+        <form #registerForm="ngForm" class="flex flex-col gap-4 w-full" (ngSubmit)="register()">
+            <input class="input w-full" name="email" 
+                [(ngModel)]="creds.email" placeholder="Email">
+            <input class="input w-full" name="displayName" 
+                [(ngModel)]="creds.username" placeholder="Display name">
+            <input type="password" class="input w-full" name="password" 
+                [(ngModel)]="creds.password" placeholder="Password">
+            
+            <div class="flex items-center justify-end gap-3">
+                <button (click)="cancel()" type="button" class="btn">Cancel</button>
+                <button class="btn btn-primary" type="submit">Register</button>
+            </div>
+        </form>
     </div>
-
-    <!--uesrname-->
-    <div class="mb-3 form-floating">
-        <input 
-        type="text" 
-        class="form-control" 
-        name="Email" 
-        [(ngModel)]="creds.Email" 
-        placeholder="Email"
-        >
-        <label>Email</label>
-    </div>
-
-    <!--password-->
-    <div class="mb-3 form-floating">
-        <input 
-        type="password" 
-        class="form-control" 
-        name="password" 
-        [(ngModel)]="creds.password" 
-        placeholder="Password"
-        >
-        <label>Password</label>
-    </div>
-    <div class="form-group text-center">
-        <button class="btn btn-success me-2" type="submit">Register</button>
-        <button class="btn btn-default me-2" type="button" (click)="cancel()">Cancel</button>
-    </div>
-
-</form>
+</div>
