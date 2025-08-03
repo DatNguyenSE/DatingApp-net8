@@ -16,8 +16,9 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
-        if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-        // neu same username thi hien error
+        if (await UserExists(registerDto.Username)) return BadRequest("Username is taken"); // neu same username thi hien error
+        if (validPassword(registerDto.Password)) return BadRequest("Password length must be greater than 6 ");
+       
 
 
         using var hmac = new HMACSHA512();
@@ -38,7 +39,7 @@ public class AccountController(DataContext context, ITokenService tokenService) 
             Id = user.Id,
             Email = user.Email,
             Username = user.UserName,
-            ImageUrl = user.ImageUrl, 
+            ImageUrl = user.ImageUrl,
             Token = tokenService.CreateToken(user)
         };
     }
@@ -47,9 +48,9 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     [HttpPost("login")] //account/login
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto) //login by username & password
     {
-        var user = await context.Users.FirstOrDefaultAsync(x =>  
+        var user = await context.Users.FirstOrDefaultAsync(x =>
         x.Email.ToLower() == loginDto.Email.ToLower());         //FirstOrDefaultAsync-> return User if true, else null
-                                                            // tìm user theo tên sau đó mới xét tới password
+                                                                // tìm user theo tên sau đó mới xét tới password
 
         if (user == null) return Unauthorized("Invalid email or password"); // néu sai ten -> obj user = null
 
@@ -61,11 +62,12 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         {
             if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password"); // nếu 1 ký tự nào khác
         }
-        return new UserDto{
+        return new UserDto
+        {
             Id = user.Id,
             Email = user.Email,
             Username = user.UserName,
-            ImageUrl = user.ImageUrl, 
+            ImageUrl = user.ImageUrl,
             Token = tokenService.CreateToken(user)
         };
     }
@@ -75,4 +77,8 @@ public class AccountController(DataContext context, ITokenService tokenService) 
         return await context.Users.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
     }
     
+    private bool validPassword(string password)
+    {
+        return password.Length <= 6;
+    }
 }

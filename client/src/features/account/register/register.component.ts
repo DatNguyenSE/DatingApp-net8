@@ -1,5 +1,5 @@
 import { Component, inject, input, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AccountService } from '../../../core/_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -18,7 +18,8 @@ export class RegisterComponent {
   cancelRegister = output<boolean>();   //out event         // <! pratice load data 'child to parent' -->
   creds:any={}
   private toastr = inject(ToastrService);
-  register(){
+  register(form: NgForm){
+    if (form.invalid) return;
     this.accountService.register(this.creds).subscribe({
       next: response => {
         console.log(response);
