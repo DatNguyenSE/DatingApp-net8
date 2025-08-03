@@ -14,19 +14,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent {
   private accountService = inject(AccountService)
-  // @Input() usersFromHomeComponent : any; angular<=17
-  usersFromHomeComponent = input.required<any>() //  <!--option: pratice load data 'parent to child' -->
   // @Output() cancelRegister = new EventEmitter();
   cancelRegister = output<boolean>();   //out event         // <! pratice load data 'child to parent' -->
-  model:any={}
-  private toastr = inject(ToastrService);
+  creds:any={}
+
   register(){
-    this.accountService.register(this.model).subscribe({
+    this.accountService.register(this.creds).subscribe({
       next: response => {
         console.log(response);
         this.cancel(); // if success -> rollback 
       },
-      error: error => this.toastr.error(error.error)
+     error: (error: any) => console.log(error)
     })
   }
 
