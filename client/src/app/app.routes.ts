@@ -1,14 +1,15 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { MemberListComponent } from './members/member-list/member-list.component';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { ListsComponent } from './lists/lists.component';
-import { MessagesComponent } from './messages/messages.component';
-import { authGuard } from './_guards/auth.guard';
-import { TestErrors } from './features/test-error/test-error.component';
-import { NotFoundComponent } from './shared/errors/not-found/not-found.component';
-import { ServerErrorComponent } from './shared/errors/server-error/server-error.component';
-export const routes: Routes = [
+import { HomeComponent } from '../features/home/home.component';
+import { MemberListComponent } from '../features/members/member-list/member-list.component';
+import { MemberDetailComponent } from '../features/members/member-detail/member-detail.component';
+import { ListsComponent } from '../features/lists/lists.component';
+import { MessagesComponent } from '../features/messages/messages.component';
+import { authGuard } from '../core/_guards/auth.guard';
+import { TestErrors } from '../features/test-error/test-error.component';
+import { NotFoundComponent } from '../shared/errors/not-found/not-found.component';
+import { ServerErrorComponent } from '../shared/errors/server-error/server-error.component';
+
+    export const routes: Routes = [
     { path: '', component: HomeComponent },
     {
         path: '',                               // start page

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavComponent } from "./nav/nav.component";
-import { AccountService } from './_services/account.service';
+import { Router, RouterOutlet } from '@angular/router';
+import { NavComponent } from '../features/nav/nav.component';
+import { AccountService } from '../core/_services/account.service';
 
 
 @Component({
@@ -15,21 +15,8 @@ import { AccountService } from './_services/account.service';
 
 //connect backend with fontend
 //export = public
-export class AppComponent implements OnInit{ 
-  private accountService = inject(AccountService);
+export class AppComponent { 
 
-
-  ngOnInit(): void {
-    this.setCurrentUser();
-  }
-
-  setCurrentUser() {
-    const userString= localStorage.getItem('user');
-    if(userString!=null) 
-      {
-        const user = JSON.parse(userString);
-        this.accountService.currentUser.set(user);
-      }
-  }
+  protected router = inject(Router);
 
 }
