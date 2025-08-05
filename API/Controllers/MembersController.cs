@@ -16,6 +16,7 @@ public class MembersController(IMemberRepository memberRepository) : BaseApiCont
     {
         return Ok(await memberRepository.GetMembersAsync());
     }
+    
 
     [HttpGet("{id}")]  //localhost 5001 -> api/users/ bob-id
     public async Task<ActionResult<Member>> GetMember(String id)
